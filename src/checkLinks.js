@@ -42,15 +42,15 @@ const checkLinks = (academics) =>
 				output
 			);
 
-			writeJSON('../data/foundAcademics.json', foundAcademics);
-			writeJSON('../data/missingAcademics.json', missingAcademics);
+			writeJSON('../../data/foundAcademics.json', foundAcademics);
+			writeJSON('../../data/missingAcademics.json', missingAcademics);
 
 			const exportAcademics = foundAcademics.map(({ name, url }) => ({
 				name,
 				url,
 			}));
 			console.log('exportAcademics: ', exportAcademics);
-			writeJSON('../data/academics.json', exportAcademics);
+			writeJSON('../../data/academics.json', exportAcademics);
 		}
 	);
 

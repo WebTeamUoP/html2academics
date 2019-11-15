@@ -5,10 +5,10 @@
  *
  * @returns {Object[]}
  */
-export default function(headers, data) {
+module.exports = function(headers, data) {
 	return data.map((row) => {
 		const rowData = {};
 		headers.forEach((header, i) => (rowData[header] = row[i]));
 		return rowData;
 	});
-}
+};
