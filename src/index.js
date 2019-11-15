@@ -1,7 +1,7 @@
 const { JSDOM } = require('jsdom');
 
-const { yeahNah } = require('./utils');
-const { readFile, writeJSON } = require('./files');
+const { yeahNah } = require('./utils/utils');
+const { readFile, writeJSON } = require('./utils/files');
 const checkLinks = require('./checkLinks');
 
 // Utils and variables definitions

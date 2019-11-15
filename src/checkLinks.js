@@ -1,8 +1,8 @@
 const axios = require('axios');
 
-const { chunks } = require('./karataev');
-const { yeahNah } = require('./utils');
-const { writeJSON } = require('./files');
+const { chunks } = require('./utils/karataev');
+const { yeahNah } = require('./utils/utils');
+const { writeJSON } = require('./utils/files');
 
 const extractResponseData = (academic, response) => {
 	let { url } = academic;
