@@ -3,8 +3,7 @@ const htmlInput = require('./htmlInput');
 const checkLinks = require('./checkLinks');
 
 // Utils and variables definitions
-// const academicsFile = '../data/long-data.html';
-const academicsFile = '../../data/csv.csv';
+const academicsFile = '../../data/in/csv.csv';
 const baseURL = 'https://researchportal.port.ac.uk/portal/en/persons/';
 
 /** Format the name for the URL
@@ -24,7 +23,7 @@ const normaliseAcademicName = (name) => name.replace(/\s/g, '-').toLowerCase();
 const generateAcademicURL = (academic) => {
 	let { name, uuid, publishing, knownAs } = academic;
 	if (!uuid) {
-		console.warn('Has no IIUD');
+		console.warn('Has no UUID');
 		return undefined;
 	}
 
@@ -48,7 +47,7 @@ const generateAcademicURL = (academic) => {
  * @param {URL} path The path to the file with the academic data
  */
 const extractAcademicsFromFile = (path) => {
-	console.log(path);
+	console.log('Reading data from: ', path);
 	if (path.endsWith('.csv')) {
 		return csvInput(path);
 	} else if (path.endsWith('.html')) {

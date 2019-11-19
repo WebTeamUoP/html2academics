@@ -30,10 +30,8 @@ const requestURL = (academic, instance) =>
 const instance = axios.create();
 
 const checkLinks = (academics) =>
-	chunks(academics, (academic) => requestURL(academic, instance)).then(
+	chunks(academics, (academic) => requestURL(academic, instance), 25).then(
 		(output) => {
-			// console.log(output);
-
 			const {
 				yeah: foundAcademics = [],
 				nah: missingAcademics = [],
@@ -49,7 +47,6 @@ const checkLinks = (academics) =>
 				name,
 				url,
 			}));
-			console.log('exportAcademics: ', exportAcademics);
 			writeJSON('../../data/academics.json', exportAcademics);
 		}
 	);

@@ -1,5 +1,5 @@
 const yeahNah = (condition, data) => {
-	console.log('Checking items in list ', data);
+	// console.log('Checking items in list ', data);
 
 	const yeah = [];
 	const nah = [];
