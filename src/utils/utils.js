@@ -10,7 +10,6 @@ const yeahNah = (condition, data) => {
 			nah.push(element);
 		}
 	});
-	console.log('Checked items in list ');
 	return { yeah, nah };
 };
 
