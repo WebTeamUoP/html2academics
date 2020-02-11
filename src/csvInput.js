@@ -2,46 +2,55 @@ const { csvToJSON } = require('./utils/csv');
 const listsToObjects = require('./utils/listsToObjects');
 const { readFile, writeJSON } = require('./utils/files');
 
+/**
+ * Checks that the object has the only the expected keys and the values are all truthy.
+ * @todo Refactor to handle desirable falsy data. Pass a function?
+ * @param  { Object } dataItem The properties of the item
+ * @param  { Array } attributes The expected attributes
+ */
+const validateObject = (dataItem, attributes) => {
+	const keys = Object.keys(dataItem);
+
+	// Checking the keys - number matches
+	if (keys.length !== attributes.length) {
+		return false;
+	}
+
+	// Checking the keys - name matches
+	const keysMatch = keys
+		.map((key) => attributes.includes(key))
+		.reduce((acc, current) => acc && current, true);
+	if (!keysMatch) {
+		return false;
+	}
+
+	return Object.values(dataItem).reduce((acc, current) => acc && current, true);
+};
+
 module.exports = (csvPath) => {
-	const jsonData = csvToJSON(readFile(csvPath));
-	const rejectedLines = [];
+	const [headers, ...data] = csvToJSON(readFile(csvPath));
 
-	const data = listsToObjects(jsonData[0], jsonData.slice(1)).map(
-		(academic) => {
-			const publishingString = ' Default publishing name';
-			const knownAsString = ' Known as name';
+	const jsonData = listsToObjects(headers, data);
 
-			const uuid = academic['UUID-1'];
-			const resolvedData = { uuid };
-
-			academic['Name variant-3'].split(', ').forEach((name) => {
-				if (name.includes(publishingString)) {
-					resolvedData['publishing'] = name.replace(
-						publishingString,
-						''
-					);
-				} else if (name.includes(knownAsString)) {
-					resolvedData['knownAs'] = name.replace(knownAsString, '');
-				} else resolvedData['unknown'] = name;
-			});
-
-			if (
-				!(
-					resolvedData.uuid &&
-					resolvedData.publishing &&
-					resolvedData.knownAs
-				)
-			) {
-				console.warn('Academic missing data: ', academic);
-				rejectedLines.push(academic);
-				return null;
-			}
-
-			return resolvedData;
-		}
+	const validItems = jsonData.filter((object) =>
+		validateObject(object, headers)
 	);
 
-	writeJSON('../../data/rejectedLines.json', rejectedLines);
+	const renamedAttributes = validItems.map((item) => {
+		const output = {};
 
-	return data.filter((academic) => academic);
+		output.name = item['Name variant > Known as name-0'];
+		output.email = item['Organisations > Email addresses > Email-2'];
+		output.uuid = item['UUID-1'];
+
+		return output;
+	});
+
+	console.log(jsonData.length);
+	console.log(validItems.length);
+
+
+	// writeJSON('../../data/rejectedLines.json', rejectedLines);
+
+	return renamedAttributes;
 };
