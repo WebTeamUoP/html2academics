@@ -6,14 +6,24 @@ import checkLinks from './checkLinks';
 import { writeJSON } from '../utils/files';
 
 export class Fef {
-	constructor(url, dataType) {
+	constructor(url, dataType, options = {}) {
 		this.url = url;
 		this.dataType = dataType;
 		this.data = {};
+		this.options = options;
 	}
 
 	saveJSON(relPath, data) {
 		writeJSON(relPath, data);
+	}
+
+	isDebug() {
+		const debug = this.options.debug;
+		if (debug) {
+			return [true, debug];
+		} else {
+			return [false, null];
+		}
 	}
 
 	// Would-be Setters

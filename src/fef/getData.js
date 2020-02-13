@@ -9,7 +9,13 @@ const extractionMethods = {
 };
 
 export const getData = (fef) => {
-	const extractedData = extractionMethods[fef.dataType](fef.data.fileData);
+	const [debugging, debugOptions] = fef.isDebug();
+	let extractedData = extractionMethods[fef.dataType](fef.data.fileData);
+
+	if (debugging && debugOptions && debugOptions.limit) {
+		extractedData = extractedData.slice(0, debugOptions.limit);
+	}
+
 	fef.data.extractedData = extractedData;
 	return fef;
 };
