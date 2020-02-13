@@ -15,9 +15,9 @@ export const processData = (fef) => {
 		nonMatching: unnamedAcademics,
 	};
 
-	fef.saveJSON('../../data/out/email/namedAcademics.json', namedAcademics);
+	fef.saveJSON('../../data/debug/namedAcademics.json', namedAcademics);
 	fef.saveJSON(
-		'../../data/out/email/unnamedAcademics.json',
+		'../../data/debug/unnamedAcademics.json',
 		unnamedAcademics
 	);
 
@@ -29,7 +29,7 @@ export const processData = (fef) => {
 	const processedData = namedAcademics.map(fef.transformation);
 	fef.data.processed = processedData;
 
-	fef.saveJSON('../../data/out/email/processedData.json', processedData);
+	fef.saveJSON('../../data/debug/processedData.json', processedData);
 
 	return fef;
 };

@@ -40,12 +40,9 @@ const checkLinks = (academics) =>
 				output
 			);
 
+			writeJSON('../../data/debug/foundAcademics.json', foundAcademics);
 			writeJSON(
-				'../../data/out/email/foundAcademics.json',
-				foundAcademics
-			);
-			writeJSON(
-				'../../data/out/email/missingAcademics.json',
+				'../../data/debug/missingAcademics.json',
 				missingAcademics
 			);
 
@@ -53,8 +50,10 @@ const checkLinks = (academics) =>
 				name,
 				url,
 				email,
-			}));
-			writeJSON('../../data/out/email/academics.json', exportAcademics);
+					};
+				}
+			);
+			writeJSON('../../data/out/academics.json', exportAcademics);
 		}
 	);
 
