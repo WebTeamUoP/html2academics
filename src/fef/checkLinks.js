@@ -46,10 +46,12 @@ const checkLinks = (academics) =>
 				missingAcademics
 			);
 
-			const exportAcademics = foundAcademics.map(({ name, url, email }) => ({
-				name,
-				url,
-				email,
+			const exportAcademics = foundAcademics.map(
+				({ name, url, email }) => {
+					return {
+						name,
+						url,
+						email,
 					};
 				}
 			);
