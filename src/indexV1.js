@@ -1,6 +1,6 @@
 import { Fef } from './fef/fef';
 
-const processor = new Fef('../../data/in/csvEmail.csv', 'csv');
+const processor = new Fef('../../data/in/csv.csv', 'csv');
 
 processor.setInputFilter(
 	(academic) =>
@@ -17,12 +17,14 @@ processor.setItemTransformation((academic) => {
 	 * @param {string} name The original name
 	 * @returns {string} URL compatible name
 	 */
+	const deduplicate = (list) => [...new Set(list)].map((str) => str.trim());
 	const normaliseAcademicName = (name) =>
 		name.replace(/\s/g, '-').toLowerCase();
 
 	const name = academic['Name variant > Known as name-0'];
 	const uuid = academic['UUID-1'];
-	const email = academic['Organisations > Email addresses > Email-2'];
+	const emailString = academic['Organisations > Email addresses > Email-2'];
+	const email = deduplicate(emailString.toLowerCase().split(', '));
 
 	const url = `${baseURL}${normaliseAcademicName(
 		name
