@@ -5,31 +5,29 @@ export const processData = (fef) => {
 		`There are ${fef.data.extractedData.length} items from the file`
 	);
 
-	const { yeah: namedAcademics = [], nah: unnamedAcademics = [] } = yeahNah(
-		fef.inputFilter,
-		fef.data.extractedData
-	);
+	if (fef.inputPreparation) {
+		console.log('Will filter');
 
-	fef.data.filteredInput = {
-		matching: namedAcademics,
-		nonMatching: unnamedAcademics,
-	};
+		const preparedItems = fef.data.extractedData
+			.map(fef.inputPreparation)
+			.filter((item) => typeof item !== 'undefined');
 
-	fef.saveJSON('../../data/debug/namedAcademics.json', namedAcademics);
-	fef.saveJSON(
-		'../../data/debug/unnamedAcademics.json',
-		unnamedAcademics
-	);
+		const itemsRemaining = preparedItems.length;
+		if (!itemsRemaining) {
+			return Promise.reject('Filtering removed all items');
+		}
+		console.log(`${itemsRemaining} remain after input preparation`);
 
-	console.log(`There are ${namedAcademics.length} items matching the filter`);
-	console.log(
-		`There are ${unnamedAcademics.length} items that don't match the filter`
-	);
+		fef.data.validData = preparedItems;
+	} else {
+		console.log('Won\'t filter');
+		fef.data.validData = fef.data.extractedData;
+	}
 
-	const processedData = namedAcademics.map(fef.transformation);
+	const processedData = fef.data.validData.flatMap(fef.transformation);
 	fef.data.processed = processedData;
 
-	fef.saveJSON('../../data/debug/processedData.json', processedData);
+	// fef.saveJSON('../../data/debug/processedData.json', processedData);
 
 	return fef;
 };

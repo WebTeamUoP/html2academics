@@ -16,7 +16,7 @@ function csvToJSON(csv) {
  * @returns {string} The CSV data
  */
 function jsonToCSV(json) {
-	let data = Papa.unparse(json);
+	let data = Papa.unparse(json, {});
 	return data;
 }
 
