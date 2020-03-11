@@ -1,7 +1,7 @@
 {
 	"name": "html2academics",
 	"version": "1.0.0",
-	"description": "",
+	"description": "A tool to get the academics information from a Pure export into a JSON file that can be used by GTM.",
 	"main": "index.js",
 	"scripts": {
 		"test": "echo \"Error: no test specified\" && exit 1",
@@ -10,16 +10,32 @@
 	},
 	"keywords": [],
 	"author": "",
-	"license": "ISC",
+	"license": "GPL-3.0-or-later",
 	"dependencies": {
 		"axios": "^0.19.0",
 		"jsdom": "^15.2.1",
-		"papaparse": "^5.1.0"
+		"papaparse": "^5.1.0",
+		"tailwindcss": "^1.1.4",
+		"vue": "^2.6.10",
+		"vue-hot-reload-api": "^2.3.4"
 	},
 	"devDependencies": {
 		"@babel/cli": "^7.6.4",
 		"@babel/core": "^7.6.4",
 		"@babel/preset-env": "^7.6.3",
-		"parcel-bundler": "^1.12.4"
-	}
+		"@vue/component-compiler-utils": "^3.0.2",
+		"parcel-bundler": "^1.12.4",
+		"eslint": "^6.7.2",
+		"eslint-plugin-vue": "^6.0.1",
+		"typescript": "^3.7.3",
+		"vue-template-compiler": "^2.6.10"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://andrewstanton94@github.com/WebTeamUoP/html2academics.git"
+	},
+	"bugs": {
+		"url": "https://github.com/WebTeamUoP/html2academics/issues"
+	},
+	"homepage": "https://github.com/WebTeamUoP/html2academics#readme"
 }

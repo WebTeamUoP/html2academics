@@ -1,0 +1,15 @@
+@import url('https://fonts.googleapis.com/css?family=Encode+Sans|Open+Sans&display=swap');
+
+@tailwind base;
+
+@tailwind components;
+
+.btn-blue {
+	@apply px-4 py-2 text-center text-white bg-blue-dark;
+}
+
+.btn-blue:hover {
+	@apply bg-blue-light;
+}
+
+@tailwind utilities;
