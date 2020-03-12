@@ -1,4 +1,4 @@
 #!/bin/bash
 
-rm -r dist
-npm run build
+git rm -r docs/*
+npm run build && git add docs/*
