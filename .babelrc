@@ -3,7 +3,7 @@
 		[
 			"@babel/preset-env",
 			{
-				"targets": { "node": 10 }
+				"targets": { "node": 10, "chrome": 75, "opera": 65 }
 			}
 		]
 	],
