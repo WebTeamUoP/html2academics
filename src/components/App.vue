@@ -150,7 +150,6 @@ export default Vue.extend({
 		startProcessing() {
 			this.processor = new Fef('#uploadForm', this.inputFormat, {
 				platform: 'browser',
-				debug: { limit: 80 },
 				browser: {
 					downloadLinkElem: document.getElementById('downloadLink'),
 					displayDownloadLink: this.setReadyToDownload,
