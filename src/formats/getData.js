@@ -1,9 +1,12 @@
 import { csvToJSON, jsonToCSV } from './csv';
+import { xlsxToJSON, jsonToXLSX } from './xlsx';
 import listsToObjects from '../utils/listsToObjects';
 
 export const mimes = {
 	csv: 'text/csv',
-	json: 'application/json'
+	json: 'application/json',
+	xlsx:
+				'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
 };
 
 const extractionMethods = {
@@ -11,12 +14,17 @@ const extractionMethods = {
 		const jsonData = csvToJSON(fileData);
 		return listsToObjects(jsonData[0], jsonData.slice(1));
 	},
-	json: (data) => JSON.parse(data)
+	json: (data) => JSON.parse(data),
+	xlsx: (data) => {
+		const excelData = xlsxToJSON(data);
+		return excelData;
+	}
 };
 
 const exportPrepMethods = {
 	csv: (dataToPrepareForExport) => jsonToCSV(dataToPrepareForExport),
-	json: (data) => JSON.stringify(data)
+	json: (data) => JSON.stringify(data),
+	xlsx: (data) => jsonToXLSX(data)
 };
 
 export const extractData = (data, dataType, debugging, debugOptions) => {
