@@ -5,16 +5,39 @@
 				Academic link generator
 			</h1>
 			<div class="py-4">
-				<p>
+				<p class="pb-2">
 					Use this tool to convert a pure export to a format that can
-					be used by a Google Tag Manager tag. See
-					<code class="font-mono">addPureOutputLinkToStaffPage</code>
-					in WebTeam Content Grafts. The GTM code is stored in
+					be used by Google Tag Manager.
+				</p>
+				<p class="pb-2">
+					The pure export must include these attributes:
+				</p>
+				<ul class="p-4 list-inside list-disc">
+					<li>
+						<code>
+							Name variant > Known as name-0
+						</code>
+					</li>
+					<li>
+						<code>
+							UUID-1
+						</code>
+					</li>
+					<li>
+						<code>
+							Organisations > Email addresses > Email-2
+						</code>
+					</li>
+				</ul>
+				<p class="pt-2">
+					The GTM code is stored in
 					<a
 						href="https://github.com/WebTeamUoP/academicPureLinksGraft"
 						class="text-blue-dark hover:text-blue-light"
 					>
-						this repo</a>
+						this repo</a>. The tag is
+					<code class="font-mono">addPureOutputLinkToStaffPage</code>
+					in the WebTeam Content Grafts folder.
 				</p>
 			</div>
 
