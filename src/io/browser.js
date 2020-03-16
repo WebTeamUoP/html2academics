@@ -1,4 +1,4 @@
-export const getFromBrowser = (elementId) =>
+export const getFromBrowser = (elementId, isBinary) =>
 	new Promise((resolve, reject) => {
 		console.log('Fetching the element with this id: ', elementId);
 
@@ -14,10 +14,17 @@ export const getFromBrowser = (elementId) =>
 		}
 
 		const reader = new FileReader();
-		const file = document.getElementById('uploadForm').files[0];
+		const file = elem.files[0];
 		console.log(file);
+		console.log('Is a binary file: ', isBinary);
 
-		reader.readAsText(file);
+
+		if (isBinary) {
+			reader.readAsBinaryString(file);
+		} else {
+			reader.readAsText(file);
+		}
+
 		reader.onload = (loadEvent) => {
 			const extractedData = loadEvent.target.result;
 			console.log('Data extracted by FileReader: ', extractedData);

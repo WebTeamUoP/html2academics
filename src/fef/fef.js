@@ -1,6 +1,6 @@
 import { getLocalFile, saveLocalFile, writeJSON } from '../io/files';
 import { getFromBrowser, saveToDevice } from '../io/browser';
-import { extractData, setData, mimes } from '../formats/getData';
+import { extractData, setData, mimes, readAsBinary } from '../formats/getData';
 import { processData } from './processData';
 
 export class Fef {
@@ -46,12 +46,13 @@ export class Fef {
 	// Stages
 	getFile() {
 		// TODO Add support for remote files
+		const isBinary = readAsBinary.includes(this.dataType) ? true : false;
 		if (this.url.startsWith('#')) {
-			return getFromBrowser(this.url).catch((err) => {
+			return getFromBrowser(this.url, isBinary).catch((err) => {
 				throw err;
 			});
 		}
-		return getLocalFile(this.url).catch((err) => {
+		return getLocalFile(this.url, readAsBinary).catch((err) => {
 			throw err;
 		});
 	}

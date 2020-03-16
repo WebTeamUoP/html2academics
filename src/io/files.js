@@ -8,6 +8,7 @@ export const getLocalFile = (url) =>
 		const absURL = absFilePath(url);
 		console.log('Fetching from this path: ', absURL);
 
+		// TODO support binary files. Like this function but remove UTF-8 argument
 		fs.readFile(absURL, 'utf-8', (err, data) => {
 			if (err) {
 				console.error('Issue getting the file:');

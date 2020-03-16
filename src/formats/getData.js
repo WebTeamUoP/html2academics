@@ -9,6 +9,8 @@ export const mimes = {
 				'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
 };
 
+export const readAsBinary = ['xlsx'];
+
 const extractionMethods = {
 	csv: (fileData, fef) => {
 		const jsonData = csvToJSON(fileData);
