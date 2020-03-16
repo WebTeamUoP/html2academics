@@ -46,6 +46,7 @@
 									id="uploadForm"
 									type="file"
 									name=""
+									@change="fileSelected"
 								>
 							</label>
 						</div>
@@ -147,6 +148,18 @@ export default Vue.extend({
 	},
 	mounted() {},
 	methods: {
+		fileSelected({ target }) {
+			const { name, type } = target.files[0];
+			const nameSections = name.split('.');
+			const extractedExtension = nameSections[nameSections.length - 1];
+
+			if (
+				this.supportedMimes.includes(extractedExtension) &&
+				mimes[extractedExtension] === type
+			) {
+				this.inputFormat = extractedExtension;
+			}
+		},
 		startProcessing() {
 			this.processor = new Fef('#uploadForm', this.inputFormat, {
 				platform: 'browser',
