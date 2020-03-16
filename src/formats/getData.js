@@ -5,11 +5,12 @@ import listsToObjects from '../utils/listsToObjects';
 export const mimes = {
 	csv: 'text/csv',
 	json: 'application/json',
+	xls: 'application/vnd.ms-excel',
 	xlsx:
 				'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
 };
 
-export const readAsBinary = ['xlsx'];
+export const readAsBinary = ['xlsx', 'xls'];
 
 const extractionMethods = {
 	csv: (fileData, fef) => {
@@ -20,13 +21,18 @@ const extractionMethods = {
 	xlsx: (data) => {
 		const excelData = xlsxToJSON(data);
 		return excelData;
+	},
+	xls: (data) => {
+		const excelData = xlsxToJSON(data);
+		return excelData;
 	}
 };
 
 const exportPrepMethods = {
 	csv: (dataToPrepareForExport) => jsonToCSV(dataToPrepareForExport),
 	json: (data) => JSON.stringify(data),
-	xlsx: (data) => jsonToXLSX(data)
+	xlsx: (data) => jsonToXLSX(data),
+	xls: (data) => jsonToXLSX(data)
 };
 
 export const extractData = (data, dataType, debugging, debugOptions) => {
