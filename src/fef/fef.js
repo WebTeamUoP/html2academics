@@ -109,6 +109,9 @@ export class Fef {
 			.then(() => this.validate(this))
 			.then(() => this.save(format, outputPath, this))
 			.then((x) => console.log('from process: ', x))
-			.catch((err) => console.error(err));
+			.catch((err) => {
+				console.error(err);
+				this.options.displayError(err);
+			});
 	}
 }

@@ -32,6 +32,7 @@
 			</div>
 			<div class="py-4">
 				<form
+					v-show="!isProcessing"
 					class="flex justify-between items-start"
 					@submit.prevent="startProcessing"
 				>
@@ -106,16 +107,53 @@
 				</form>
 			</div>
 			<div
-				v-show="readyToDownload"
-				class="py-4"
+				v-show="isProcessing"
+				class="border-l-4 border-purple-dark"
 			>
+				<p class="m-4 text-2xl text-purple-light">
+					We are processing your data
+				</p>
+				<p class="m-4">
+					We may be some time.
+				</p>
+			</div>
+			<div
+				v-show="readyToDownload"
+				class="border-l-4 border-green-600 py-4"
+			>
+				<p class="m-4 text-2xl text-purple-light">
+					Success
+				</p>
+				<p class="m-4">
+					Here is your data. Click <code>Download</code> to save it.
+				</p>
 				<a
 					id="downloadLink"
 					target="_blank"
 					href=""
-					class="btn-blue"
+					class="m-4 btn-blue"
 					download=""
 				>Download</a>
+			</div>
+
+			<div
+				v-if="error"
+				class="border-l-4 border-red-700 py-4"
+			>
+				<p class="m-4 text-2xl text-purple-light">
+					Error
+				</p>
+				<p class="m-4">
+					Something has gone wrong.
+				</p>
+
+				<p
+					v-for="(err, i) in errorLog"
+					:key="i"
+					class="m-4"
+				>
+					{{ err }}
+				</p>
 			</div>
 		</div>
 	</main>
@@ -134,11 +172,14 @@ import { yeahNah } from '../utils/utils';
 export default Vue.extend({
 	data() {
 		return {
+			isProcessing: false,
 			processor: '',
 			inputFormat: 'csv',
 			readyToDownload: false,
 			outputName: 'academics.json',
 			outputFormat: 'json',
+			error: false,
+			errorLog: [],
 		};
 	},
 	computed: {
@@ -161,7 +202,9 @@ export default Vue.extend({
 			}
 		},
 		startProcessing() {
+			this.isProcessing = true;
 			this.processor = new Fef('#uploadForm', this.inputFormat, {
+				displayError: this.setError,
 				platform: 'browser',
 				browser: {
 					downloadLinkElem: document.getElementById('downloadLink'),
@@ -277,8 +320,15 @@ export default Vue.extend({
 			this.processor.run(this.outputName, this.outputFormat);
 		},
 		setReadyToDownload() {
+			this.isProcessing = false;
 			this.readyToDownload = true;
 			console.log('Set readyToDownload to true');
+		},
+		setError(message) {
+			this.error = true;
+			if (message) {
+				this.errorLog.push(message);
+			}
 		},
 	},
 });
