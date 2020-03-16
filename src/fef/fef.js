@@ -84,17 +84,21 @@ export class Fef {
 		const dataToSave = data.validated ? data.validated : data.processed;
 		const exportableData = setData(format, dataToSave);
 
-		if (fef.options.platform === 'browser') {
-			saveToDevice(
-				exportableData,
-				outputPath,
-				fef.mime,
-				fef.options.browser.downloadLinkElem,
-				fef.options.browser.displayDownloadLink
-			);
-		} else {
-			saveLocalFile(exportableData, outputPath);
+		// Null indicates the conversion library handles the file writing step
+		if (exportableData) {
+			if (fef.options.platform === 'browser') {
+				saveToDevice(
+					exportableData,
+					outputPath,
+					fef.mime,
+					fef.options.browser.downloadLinkElem,
+					fef.options.browser.displayDownloadLink
+				);
+			} else {
+				saveLocalFile(exportableData, outputPath);
+			}
 		}
+
 		return fef;
 	}
 
